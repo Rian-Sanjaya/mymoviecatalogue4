@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyMovieCatalogue4</string>
+    <string name="title_movie">Film</string>
+    <string name="title_tvshow">Acara Tv</string>
+    <string name="movie_name">Nama Film</string>
+    <string name="movie_desc">Deskripsi Film. Lorem ipsum dulur</string>
+    <string name="movie_image">Gambar Film</string>
+    <string name="user_score">Skor Penonton</string>
+    <string name="release_date">Tanggal Rilis</string>
+    <string name="original_language">Bahasa Asli</string>
+    <string name="language">Bahasa</string>
+    <string name="english">Ingris</string>
+    <string name="indonesia">Indonesia</string>
+    <string name="change_language_settings">Ubah Bahasa</string>
+    <string name="movie_detail">Detil Film</string>
+    <string name="tvshow_detail">Detil Acara Tv</string>
+    <string name="setting">Pengaturan</string>
+    <string name="title_favorite">Favorit</string>
+</resources>

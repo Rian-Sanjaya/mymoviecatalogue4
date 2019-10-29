@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MyMovieCatalogue4</string>
+    <string name="title_movie">Movie</string>
+    <string name="title_tvshow">Tv Show</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_desc">Movie Description. Lorem ipsum dulur</string>
+    <string name="movie_image">Movie Image</string>
+    <string name="user_score">User Score</string>
+    <string name="release_date">Release Date</string>
+    <string name="original_language">Original Language</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="indonesia">Indonesia</string>
+    <string name="change_language_settings">Change Language</string>
+    <string name="movie_detail">Movie Detail</string>
+    <string name="tvshow_detail">Tv Show Detail</string>
+    <string name="setting">Setting</string>
+    <string name="title_favorite">Favorite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
