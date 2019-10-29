@@ -70,5 +70,5 @@ public class MovieViewModel extends ViewModel {
         });
     }
 
-    public LiveData<ArrayList<Movie>> getMovies() { return list; }
+    LiveData<ArrayList<Movie>> getMovies() { return list; }
 }
