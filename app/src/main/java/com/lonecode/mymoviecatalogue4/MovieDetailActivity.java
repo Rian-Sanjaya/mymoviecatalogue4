@@ -119,7 +119,7 @@ public class MovieDetailActivity extends AppCompatActivity implements LoadFavMov
 
         if (result > 0) {
             if (favMenu != null) {
-                favMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_home_black_24dp))  ;
+                favMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites))  ;
             }
 //           Toast.makeText(this, "Berhasil insert", Toast.LENGTH_LONG).show();
         } else {
@@ -200,12 +200,12 @@ public class MovieDetailActivity extends AppCompatActivity implements LoadFavMov
         if (listFavMovie != null && listFavMovie.size() > 0) {
             if (menu.size() > 0) {
                 this.favMenu = menu;
-                menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_home_black_24dp));
+                menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites));
             }
         } else {
             if (menu.size() > 0) {
                 this.favMenu = menu;
-                menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_dashboard_black_24dp));
+                menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_add_to_favorites));
             }
         }
 

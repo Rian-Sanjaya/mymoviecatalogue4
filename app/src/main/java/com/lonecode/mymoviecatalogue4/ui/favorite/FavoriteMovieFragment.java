@@ -68,8 +68,19 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         rvFavoriteMovie = root.findViewById(R.id.rv_favorite_movie);
         rvFavoriteMovie.setHasFixedSize(true);
 
-//        list.addAll(MovieData.getListData());
-        list.addAll(movie);
+//        list.addAll(movie);
+        for (int i = 0; i < movie.size(); i++) {
+            Movie movieItems = new Movie();
+            movieItems.setMovieid(String.valueOf(movie.get(i).getMovieid()));
+            movieItems.setName(movie.get(i).getName());
+            movieItems.setDescription("");
+            movieItems.setPosterPath(movie.get(i).getPosterPath());
+            movieItems.setUserScore(movie.get(i).getUserScore());
+            movieItems.setReleaseDate(movie.get(i).getReleaseDate());
+            movieItems.setOriginalLanguage(movie.get(i).getOriginalLanguage());
+            movieItems.setCategory("movie");
+            list.add(movieItems);
+        }
         int listSize = list.size();
         Log.i("listsize: ",  String.valueOf(listSize));
 
