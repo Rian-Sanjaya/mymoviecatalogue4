@@ -47,8 +47,11 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         Log.i("listsize: ",  String.valueOf(listSize));
 
         rvFavoriteMovie.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListMovieAdapter listMovieAdapter = new ListMovieAdapter(list);
+//      listMovieAdapter = new ListMovieAdapter(list);
+        listMovieAdapter = new ListMovieAdapter(getContext(), this);
+        listMovieAdapter.notifyDataSetChanged();
         rvFavoriteMovie.setAdapter(listMovieAdapter);
+        listMovieAdapter.setData(list);
 
         return root;
     }

@@ -11,6 +11,7 @@ public class Movie implements Parcelable {
     private String releaseDate;
     private String originalLanguage;
     private String posterPath;
+    private String category;
 
     public int getPhoto() {
         return photo;
