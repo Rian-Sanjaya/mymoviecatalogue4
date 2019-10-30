@@ -47,12 +47,14 @@ public class TvShowViewModel extends ViewModel {
                     for (int i = 0; i < listMv.length(); i++) {
                         JSONObject movie = listMv.getJSONObject(i);
                         Movie movieItems = new Movie();
+                        movieItems.setMovieid(String.valueOf(movie.getInt("id")));
                         movieItems.setName(movie.getString("name"));
                         movieItems.setDescription(movie.getString("overview"));
                         movieItems.setPosterPath(IMG_URL + movie.getString("poster_path"));
                         movieItems.setUserScore( new DecimalFormat("#").format(movie.getDouble("vote_average") * 10));
                         movieItems.setReleaseDate(movie.getString("first_air_date"));
                         movieItems.setOriginalLanguage(movie.getString("original_language"));
+                        movieItems.setCategory("tvshow");
                         listMovies.add(movieItems);
                     }
                     list.postValue(listMovies);
