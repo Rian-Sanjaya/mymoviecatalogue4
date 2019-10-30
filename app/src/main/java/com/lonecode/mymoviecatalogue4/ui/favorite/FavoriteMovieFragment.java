@@ -4,22 +4,18 @@ package com.lonecode.mymoviecatalogue4.ui.favorite;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.lonecode.mymoviecatalogue4.ListMovieAdapter;
 import com.lonecode.mymoviecatalogue4.Movie;
-import com.lonecode.mymoviecatalogue4.MovieDetailActivity;
 import com.lonecode.mymoviecatalogue4.R;
 import com.lonecode.mymoviecatalogue4.db.FavMovieHelper;
 import com.lonecode.mymoviecatalogue4.helper.MappingHelper;
@@ -30,6 +26,7 @@ import java.util.ArrayList;
 
 interface LoadListFavMovieCallback {
     void preExecute();
+
     void postExecute(ArrayList<Movie> movie);
 }
 
@@ -54,7 +51,7 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_favorite_movie, container, false);
+        root = inflater.inflate(R.layout.fragment_favorite_movie, container, false);
 
         favMovieHelper = FavMovieHelper.getInstance(getActivity().getApplicationContext());
         favMovieHelper.open();
@@ -82,7 +79,7 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
             list.add(movieItems);
         }
         int listSize = list.size();
-        Log.i("listsize: ",  String.valueOf(listSize));
+        Log.i("listsize: ", String.valueOf(listSize));
 
         rvFavoriteMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         listMovieAdapter = new ListMovieAdapter(getContext(), this);

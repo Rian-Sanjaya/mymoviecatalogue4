@@ -4,16 +4,15 @@ package com.lonecode.mymoviecatalogue4.ui.favorite;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.lonecode.mymoviecatalogue4.ListMovieAdapter;
 import com.lonecode.mymoviecatalogue4.Movie;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 
 interface LoadListFavTvShowCallback {
     void preExecute();
+
     void postExecute(ArrayList<Movie> movie);
 }
 
@@ -77,7 +77,7 @@ public class FavoriteTvShowFragment extends Fragment implements ListMovieAdapter
             list.add(movieItems);
         }
         int listSize = list.size();
-        Log.i("listsize: ",  String.valueOf(listSize));
+        Log.i("listsize: ", String.valueOf(listSize));
 
         rvFavoriteTvShow.setLayoutManager(new LinearLayoutManager(getContext()));
         listMovieAdapter = new ListMovieAdapter(getContext(), this);

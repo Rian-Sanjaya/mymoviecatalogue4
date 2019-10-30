@@ -1,7 +1,5 @@
 package com.lonecode.mymoviecatalogue4;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -9,18 +7,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.lonecode.mymoviecatalogue4.db.DatabaseMovie;
 import com.lonecode.mymoviecatalogue4.db.FavMovieHelper;
-import com.lonecode.mymoviecatalogue4.helper.CompareDrawable;
 import com.lonecode.mymoviecatalogue4.helper.MappingHelper;
 
 import java.lang.ref.WeakReference;
@@ -32,6 +29,7 @@ import java.util.Locale;
 
 interface LoadFavMovieCallback {
     void preExecute();
+
     void postExecute(ArrayList<Movie> movie);
 }
 
@@ -119,7 +117,7 @@ public class MovieDetailActivity extends AppCompatActivity implements LoadFavMov
 
         if (result > 0) {
             if (favMenu != null) {
-                favMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites))  ;
+                favMenu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites));
             }
 //           Toast.makeText(this, "Berhasil insert", Toast.LENGTH_LONG).show();
         } else {
