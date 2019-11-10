@@ -15,4 +15,25 @@
     <string name="tvshow_detail">Tv Show Detail</string>
     <string name="setting">Setting</string>
     <string name="title_favorite">Favorite</string>
+    <string name="search">Search</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="search_tv_show">Search Tv Show</string>
+    <string name="type_movie_title">Type in movie title</string>
+    <string name="type_tvshow_title">Type in tv show title</string>
+    <string name="movie_not_found">Movie Not Found</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="realease_reminder">Movie Release Reminder</string>
+    <string name="choose_language">Choose Language</string>
+    <string name="change_language_key" translatable="false">change_language_key</string>
+    <string name="preferred_language">Choose your preferred language</string>
+    <string name="daily_reminder_key" translatable="false">daily_reminder_key</string>
+    <string name="daily_reminder_summary">Set a Daily Reminder</string>
+    <string name="daily_realease_movie_key" translatable="false">daily_realease_movie_key</string>
+    <string name="set_new_movie_realease_reminder">Set New Movie Realease Reminder</string>
+    <string name="new_movie_release_on">New Movie Realease On</string>
+    <string name="new_movie_release_off">New Movie Realease Off</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

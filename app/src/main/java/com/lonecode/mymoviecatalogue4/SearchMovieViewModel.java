@@ -1,12 +1,10 @@
-package com.lonecode.mymoviecatalogue4.ui.movie;
+package com.lonecode.mymoviecatalogue4;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.lonecode.mymoviecatalogue4.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -19,12 +17,12 @@ import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MovieViewModel extends ViewModel {
+public class SearchMovieViewModel {
     private static final String API_KEY = "e4621b68dcd1fa1de4a66cfd0664dc28";
     private static final String IMG_URL = "https://image.tmdb.org/t/p/w500/";
     private MutableLiveData<ArrayList<Movie>> list = new MutableLiveData<>();
 
-    public void setMovie(String title) {
+    void setMovie() {
         String language;
 
         if (Locale.getDefault().getLanguage().contentEquals("in")) {
@@ -35,12 +33,8 @@ public class MovieViewModel extends ViewModel {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Movie> listMovies = new ArrayList<>();
-        String url;
-        if (title == "") {
-            url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=" + language;
-        } else {
-            url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=" + language + "&query=" + title;
-        }
+        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=" + language;
+        url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=" + language + "&query=";
         Log.i("isiurl", url);
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -77,5 +71,6 @@ public class MovieViewModel extends ViewModel {
         });
     }
 
-    public LiveData<ArrayList<Movie>> getMovies() { return list; }
+    LiveData<ArrayList<Movie>> getMovies() { return list; }
+
 }

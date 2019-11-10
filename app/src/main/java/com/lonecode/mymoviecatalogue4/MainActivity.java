@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,13 +19,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     private Globals g = Globals.getInstance();
     private Toolbar toolbar;
+    private BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,11 +49,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_setting) {
-            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-            startActivity(mIntent);
+        switch (item.getItemId()) {
+            case R.id.search:
+                if (navView.getSelectedItemId() == R.id.navigation_movie) {
+//                    Toast.makeText(this, "Search Movie", Toast.LENGTH_LONG).show();
+                    Intent searchMovieIntent = new Intent(this, SearchMovieActivity.class);
+                    startActivity(searchMovieIntent);
+
+                } else if (navView.getSelectedItemId() == R.id.navigation_tvshow) {
+                    Toast.makeText(this, "Search Tv", Toast.LENGTH_LONG).show();
+//                    Intent searchMovieIntent = new Intent(this, SearchMovieActivity.class);
+//                    startActivity(searchMovieIntent);
+                }
+                return true;
+
+            case R.id.menu_setting:
+                Intent intent = new Intent(this, SettingPreferenceActivity.class);
+                startActivity(intent);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
 }

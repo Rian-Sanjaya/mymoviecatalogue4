@@ -1,0 +1,38 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:iconSpaceReserved="false">
+
+    <PreferenceCategory android:title="@string/change_language_settings"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="@string/change_language_key"
+            android:summary="@string/preferred_language"
+            android:title="@string/choose_language"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/set_reminder"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/daily_reminder_key"
+            android:summary="@string/daily_reminder_summary"
+            android:title="@string/daily_reminder"
+            app:iconSpaceReserved="false"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/daily_realease_movie_key"
+            android:summary="@string/set_new_movie_realease_reminder"
+            android:summaryOff="@string/new_movie_release_off"
+            android:summaryOn="@string/new_movie_release_on"
+            android:title="@string/realease_reminder"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

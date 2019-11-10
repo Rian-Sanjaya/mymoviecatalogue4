@@ -16,4 +16,19 @@
     <string name="tvshow_detail">Detil Acara Tv</string>
     <string name="setting">Pengaturan</string>
     <string name="title_favorite">Favorit</string>
+    <string name="search">Cari</string>
+    <string name="search_movie">Cari Film</string>
+    <string name="search_tv_show">Cari Acara Tv</string>
+    <string name="type_movie_title">Ketik judul film</string>
+    <string name="type_tvshow_title">Ketik judul acara tv</string>
+    <string name="movie_not_found">Film tidak ditemukan</string>
+    <string name="set_reminder">Setel Pengingat</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="realease_reminder">Pengingat Rilis Film</string>
+    <string name="choose_language">Pilih Bahasa</string>
+    <string name="preferred_language">Pilih bahasa pilihan anda</string>
+    <string name="daily_reminder_summary">Atur Pengingat Harian</string>
+    <string name="set_new_movie_realease_reminder">Atur Pengingat Rilis Film Baru</string>
+    <string name="new_movie_release_on">Rilis Film Baru Aktif</string>
+    <string name="new_movie_release_off">Rilis Film Baru Tidak Aktif</string>
 </resources>

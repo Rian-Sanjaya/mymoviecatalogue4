@@ -3,6 +3,8 @@
     package="com.lonecode.mymoviecatalogue4">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,18 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SettingPreferenceFragment"></activity>
+        <activity android:name=".SettingPreferenceActivity" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/setting" />
+
+        <activity android:name=".SearchMovieActivity" />
         <activity
-            android:name="com.lonecode.mymoviecatalogue4.SettingActivity"
-            android:parentActivityName="com.lonecode.mymoviecatalogue4.MainActivity">
+            android:name=".SettingActivity"
+            android:parentActivityName=".MainActivity">
 
             <!-- The meta-data element is needed for versions lower than 4.1 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.lonecode.mymoviecatalogue4.SettingActivity" />
         </activity>
-        <activity android:name="com.lonecode.mymoviecatalogue4.MovieDetailActivity" />
+        <activity android:name=".MovieDetailActivity" />
         <activity
-            android:name="com.lonecode.mymoviecatalogue4.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +40,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".services.DailyReminder"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".services.ReleaseReminder"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

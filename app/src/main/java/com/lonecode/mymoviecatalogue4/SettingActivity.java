@@ -1,43 +1,58 @@
 package com.lonecode.mymoviecatalogue4;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioButton;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
-import java.util.Locale;
+import com.lonecode.mymoviecatalogue4.services.DailyReminder;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private Globals g = Globals.getInstance();
+    private Switch swDailyReminder;
+    private Switch swMovieReleaseReminder;
+    private DailyReminder dailyReminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        RadioButton rbEnglish = findViewById(R.id.rbEnglish);
-        RadioButton rbIndonesia = findViewById(R.id.rbIndonesia);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        String language = g.getLanguage();
+        Button btnChooseLanguage = findViewById(R.id.btn_choose_language);
+        btnChooseLanguage.setOnClickListener(this);
 
-        switch (language) {
-            case "en":
-                rbEnglish.setChecked(true);
-                break;
+        swDailyReminder = findViewById(R.id.daily_reminder);
+        swDailyReminder.setOnCheckedChangeListener(this);
 
-            case "id":
-                rbIndonesia.setChecked(true);
-                break;
-        }
+        swMovieReleaseReminder = findViewById(R.id.release_reminder);
+        swMovieReleaseReminder.setOnCheckedChangeListener(this);
+
+        dailyReminder = new DailyReminder();
+
+//        String language = g.getLanguage();
+//
+//        switch (language) {
+//            case "en":
+//                rbEnglish.setChecked(true);
+//                break;
+//
+//            case "id":
+//                rbIndonesia.setChecked(true);
+//                break;
+//        }
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getString(R.string.setting));
@@ -58,30 +73,6 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    public void onRadioButtonClicked(View view) {
-        // is the button now checked ?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        // check which radio button was clicked
-        switch (view.getId()) {
-            case R.id.rbEnglish:
-                if (checked) {
-                    setappLocale("en");
-                    g.setLanguage("en");
-                }
-
-                break;
-
-            case R.id.rbIndonesia:
-                if (checked) {
-                    setappLocale("id");
-                    g.setLanguage("id");
-                }
-
-                break;
-        }
-    }
-
     // force refresh when android back button is click
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -94,15 +85,49 @@ public class SettingActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void setappLocale(String localeCode) {
-        Resources resources = getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration config = resources.getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(new Locale(localeCode.toLowerCase()));
-        } else {
-            config.locale = new Locale(localeCode.toLowerCase());
+//    private void setappLocale(String localeCode) {
+//        Resources resources = getResources();
+//        DisplayMetrics dm = resources.getDisplayMetrics();
+//        Configuration config = resources.getConfiguration();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            config.setLocale(new Locale(localeCode.toLowerCase()));
+//        } else {
+//            config.locale = new Locale(localeCode.toLowerCase());
+//        }
+//        resources.updateConfiguration(config, dm);
+//    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.daily_reminder:
+                if (isChecked) {
+//                    Toast.makeText(this, "Daily Reminder enabled", Toast.LENGTH_LONG).show();
+                    dailyReminder.setRepeatingReminder(this);
+
+                } else {
+//                    Toast.makeText(this, "Daily Reminder disabled", Toast.LENGTH_LONG).show();
+                    dailyReminder.cancelRepeatingReminder(this);
+                }
+                break;
+
+            case R.id.release_reminder:
+                if (isChecked) {
+                    Toast.makeText(this, "Release Reminder enabled", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this, "Release Reminder disabled", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
-        resources.updateConfiguration(config, dm);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_choose_language) {
+            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        }
     }
 }

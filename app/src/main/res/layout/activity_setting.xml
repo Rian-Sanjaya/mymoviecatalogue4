@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".SettingActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,25 +26,40 @@
         android:textSize="20sp"
         android:textStyle="bold"/>
 
-    <RadioGroup
-        android:id="@+id/rgLanguage"
+    <Button
+        android:id="@+id/btn_choose_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp">
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/choose_language" />
 
-        <RadioButton
-            android:id="@+id/rbEnglish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/english"
-            android:onClick="onRadioButtonClicked"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_reminder"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
-        <RadioButton
-            android:id="@+id/rbIndonesia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/indonesia"
-            android:onClick="onRadioButtonClicked"/>
-    </RadioGroup>
+    <Switch
+        android:id="@+id/daily_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/daily_reminder"
+        android:checked="false"
+        android:textOff="OFF"
+        android:textOn="ON"/>
+
+    <Switch
+        android:id="@+id/release_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/realease_reminder"
+        android:checked="false"
+        android:textOff="OFF"
+        android:textOn="ON"/>
 
 </LinearLayout>

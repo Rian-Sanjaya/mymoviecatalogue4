@@ -53,7 +53,7 @@ public class MovieFragment extends Fragment implements ListMovieAdapter.OnItemCl
         movieViewModel =
                 ViewModelProviders.of(this).get(MovieViewModel.class);
 
-        movieViewModel.setMovie();
+        movieViewModel.setMovie("");
         showLoading(true);
 
         movieViewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {
