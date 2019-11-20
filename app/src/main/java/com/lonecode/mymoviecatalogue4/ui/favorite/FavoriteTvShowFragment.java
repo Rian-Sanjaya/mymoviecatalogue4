@@ -142,7 +142,7 @@ public class FavoriteTvShowFragment extends Fragment implements ListMovieAdapter
     public void onDestroy() {
         super.onDestroy();
 
-        favMovieHelper.close();
+//        favMovieHelper.close();
     }
 
     @Override

@@ -1,5 +1,4 @@
-package com.lonecode.mymoviecatalogue4.ui.favorite;
-
+package com.lonecode.favoriteconsumer;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,26 +6,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lonecode.mymoviecatalogue4.ListMovieAdapter;
-import com.lonecode.mymoviecatalogue4.Movie;
-import com.lonecode.mymoviecatalogue4.R;
-import com.lonecode.mymoviecatalogue4.db.FavMovieHelper;
-import com.lonecode.mymoviecatalogue4.helper.MappingHelper;
-import com.lonecode.mymoviecatalogue4.ui.movie.MovieViewModel;
+import com.lonecode.favoriteconsumer.helper.MappingHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import static com.lonecode.mymoviecatalogue4.db.DatabaseMovie.FavMovie.CONTENT_URI;
+import static com.lonecode.favoriteconsumer.db.DatabaseMovie.FavMovie.CONTENT_URI;
 
 interface LoadListFavMovieCallback {
     void preExecute();
@@ -34,40 +25,21 @@ interface LoadListFavMovieCallback {
     void postExecute(ArrayList<Movie> movie);
 }
 
-public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.OnItemClickCallback, LoadListFavMovieCallback {
-    private View root;
+public class MainActivity extends AppCompatActivity implements ListMovieAdapter.OnItemClickCallback, LoadListFavMovieCallback {
     private RecyclerView rvFavoriteMovie;
     private ListMovieAdapter listMovieAdapter;
-
     private ArrayList<Movie> list = new ArrayList<>();
-    private MovieViewModel movieViewModel;
-
-    private FavMovieHelper favMovieHelper;
-    private ArrayList<Movie> listFavMovie;
-
-    public FavoriteMovieFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_favorite_movie, container, false);
-
-//        favMovieHelper = FavMovieHelper.getInstance(getActivity().getApplicationContext());
-//        favMovieHelper.open();
-
-//        new LoadFavMovieAsync(favMovieHelper, this).execute();
-        new LoadFavMovieAsync(getContext(), this).execute();
-
-        return root;
+        new LoadFavMovieAsync(this, this).execute();
     }
 
     private void showList(ArrayList<Movie> movie) {
-        rvFavoriteMovie = root.findViewById(R.id.rv_favorite_movie);
+        rvFavoriteMovie = findViewById(R.id.rv_favorite_movie);
         rvFavoriteMovie.setHasFixedSize(true);
 
 //        list.addAll(movie);
@@ -86,8 +58,8 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         int listSize = list.size();
         Log.i("listsize: ", String.valueOf(listSize));
 
-        rvFavoriteMovie.setLayoutManager(new LinearLayoutManager(getContext()));
-        listMovieAdapter = new ListMovieAdapter(getContext(), this);
+        rvFavoriteMovie.setLayoutManager(new LinearLayoutManager(this));
+        listMovieAdapter = new ListMovieAdapter(this, this);
         listMovieAdapter.notifyDataSetChanged();
         rvFavoriteMovie.setAdapter(listMovieAdapter);
         listMovieAdapter.setData(list);
@@ -95,7 +67,7 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
 
     @Override
     public void preExecute() {
-        getActivity().runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Log.i("Text preExecute", "Test preExecute");
@@ -108,23 +80,16 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         if (movie.size() > 0) {
             showList(movie);
 
-//            listFavMovie = movie;
-//            Toast.makeText(getContext(), "Fav Movie size: " + String.valueOf(listFavMovie.size()), Toast.LENGTH_LONG).show();
-//            Toast.makeText(this, listFavMovie.get(0).getName(), Toast.LENGTH_LONG).show();
-
         } else {
-            Toast.makeText(getContext(), "No Data", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Data", Toast.LENGTH_LONG).show();
         }
     }
 
     private static class LoadFavMovieAsync extends AsyncTask<Void, Void, ArrayList<Movie>> {
-//        private final WeakReference<FavMovieHelper> weakFavMovieHelper;
         private final WeakReference<Context> weakContext;
         private final WeakReference<LoadListFavMovieCallback> weakCallback;
 
-//        private LoadFavMovieAsync(FavMovieHelper favMovieHelper, LoadListFavMovieCallback callback) {
         private LoadFavMovieAsync(Context context, LoadListFavMovieCallback callback) {
-//            weakFavMovieHelper = new WeakReference<>(favMovieHelper);
             weakContext = new WeakReference<>(context);
             weakCallback = new WeakReference<>(callback);
         }
@@ -139,7 +104,6 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         protected ArrayList<Movie> doInBackground(Void... voids) {
             Uri uriWithCategory = Uri.parse(CONTENT_URI + "/category/movie");
 
-//            Cursor dataCursor = weakFavMovieHelper.get().queryAllByCategory("movie");
             Context context = weakContext.get();
             Cursor dataCursor = context.getContentResolver().query(uriWithCategory, null, null, null, null);
             return MappingHelper.mapCursorToArrayList(dataCursor);
@@ -150,13 +114,6 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
             super.onPostExecute(movie);
             weakCallback.get().postExecute(movie);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-//        favMovieHelper.close();
     }
 
     @Override
