@@ -1,7 +1,9 @@
 package com.lonecode.mymoviecatalogue4.ui.favorite;
 
 
+import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,12 +23,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lonecode.mymoviecatalogue4.ListMovieAdapter;
 import com.lonecode.mymoviecatalogue4.Movie;
 import com.lonecode.mymoviecatalogue4.R;
+import com.lonecode.mymoviecatalogue4.db.DatabaseMovie;
 import com.lonecode.mymoviecatalogue4.db.FavMovieHelper;
 import com.lonecode.mymoviecatalogue4.helper.MappingHelper;
 import com.lonecode.mymoviecatalogue4.ui.movie.MovieViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
+import static com.lonecode.mymoviecatalogue4.db.DatabaseMovie.FavMovie.CONTENT_URI;
 
 interface LoadListFavMovieCallback {
     void preExecute();
@@ -60,7 +65,8 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         favMovieHelper = FavMovieHelper.getInstance(getActivity().getApplicationContext());
         favMovieHelper.open();
 
-        new LoadFavMovieAsync(favMovieHelper, this).execute();
+//        new LoadFavMovieAsync(favMovieHelper, this).execute();
+        new LoadFavMovieAsync(getContext(), this).execute();
 
         return root;
     }
@@ -107,7 +113,7 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
         if (movie.size() > 0) {
             showList(movie);
 
-            listFavMovie = movie;
+//            listFavMovie = movie;
 //            Toast.makeText(getContext(), "Fav Movie size: " + String.valueOf(listFavMovie.size()), Toast.LENGTH_LONG).show();
 //            Toast.makeText(this, listFavMovie.get(0).getName(), Toast.LENGTH_LONG).show();
 
@@ -117,11 +123,14 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
     }
 
     private static class LoadFavMovieAsync extends AsyncTask<Void, Void, ArrayList<Movie>> {
-        private final WeakReference<FavMovieHelper> weakFavMovieHelper;
+//        private final WeakReference<FavMovieHelper> weakFavMovieHelper;
+        private final WeakReference<Context> weakContext;
         private final WeakReference<LoadListFavMovieCallback> weakCallback;
 
-        private LoadFavMovieAsync(FavMovieHelper favMovieHelper, LoadListFavMovieCallback callback) {
-            weakFavMovieHelper = new WeakReference<>(favMovieHelper);
+//        private LoadFavMovieAsync(FavMovieHelper favMovieHelper, LoadListFavMovieCallback callback) {
+        private LoadFavMovieAsync(Context context, LoadListFavMovieCallback callback) {
+//            weakFavMovieHelper = new WeakReference<>(favMovieHelper);
+            weakContext = new WeakReference<>(context);
             weakCallback = new WeakReference<>(callback);
         }
 
@@ -133,7 +142,11 @@ public class FavoriteMovieFragment extends Fragment implements ListMovieAdapter.
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... voids) {
-            Cursor dataCursor = weakFavMovieHelper.get().queryAllByCategory("movie");
+            Uri uriWithCategory = Uri.parse(CONTENT_URI + "/category/movie");
+
+//            Cursor dataCursor = weakFavMovieHelper.get().queryAllByCategory("movie");
+            Context context = weakContext.get();
+            Cursor dataCursor = context.getContentResolver().query(uriWithCategory, null, null, null, null);
             return MappingHelper.mapCursorToArrayList(dataCursor);
         }
 

@@ -30,4 +30,18 @@ public class MappingHelper {
         return movieList;
     }
 
+    public static Movie mapCursorToObject(Cursor cursor) {
+        cursor.moveToFirst();
+//        int id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie._ID));
+        String movieid = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.MOVIEID));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.NAME));
+        String description = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.DESCRIPTION));
+        String userScore = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.USERSCORE));
+        String releaseDate = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.RELEASEDATE));
+        String originalLanguage = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.ORIGINALLANGUAGE));
+        String posterPath = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.POSTERPATH));
+        String category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseMovie.FavMovie.CATEGORY));
+
+        return new Movie(movieid, name, description, userScore, releaseDate, originalLanguage, posterPath, category);
+    }
 }
