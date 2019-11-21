@@ -2,9 +2,7 @@ package com.lonecode.mymoviecatalogue4;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -57,9 +55,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(searchMovieIntent);
 
                 } else if (navView.getSelectedItemId() == R.id.navigation_tvshow) {
-                    Toast.makeText(this, "Search Tv", Toast.LENGTH_LONG).show();
-//                    Intent searchMovieIntent = new Intent(this, SearchMovieActivity.class);
-//                    startActivity(searchMovieIntent);
+                    Intent searchTvShowIntent = new Intent(this, SearchTvShowActivity.class);
+                    startActivity(searchTvShowIntent);
                 }
                 return true;
 

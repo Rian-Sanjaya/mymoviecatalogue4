@@ -17,10 +17,10 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.lonecode.mymoviecatalogue4.BuildConfig;
 import com.lonecode.mymoviecatalogue4.Movie;
 import com.lonecode.mymoviecatalogue4.MovieDetailActivity;
 import com.lonecode.mymoviecatalogue4.R;
-import com.lonecode.mymoviecatalogue4.SearchMovieActivity;
 import com.lonecode.mymoviecatalogue4.helper.NetworkUtils;
 
 import org.json.JSONArray;
@@ -35,8 +35,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+
+import static com.lonecode.mymoviecatalogue4.helper.NetworkUtils.IMG_URL;
 
 interface LoadNewMovieListCallback {
 //    void preExecute();
@@ -69,7 +70,7 @@ public class ReleaseReminder extends BroadcastReceiver implements LoadNewMovieLi
         Intent intent = new Intent(context, ReleaseReminder.class);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
@@ -92,7 +93,7 @@ public class ReleaseReminder extends BroadcastReceiver implements LoadNewMovieLi
     }
 
     private void getNewMovieRelease() {
-        String API_KEY = "e4621b68dcd1fa1de4a66cfd0664dc28";
+        String API_KEY = BuildConfig.TMDB_API_KEY;
 
         SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault());
         Date date = new Date();
@@ -131,7 +132,6 @@ public class ReleaseReminder extends BroadcastReceiver implements LoadNewMovieLi
             URL newURL = urls[0];
             String result = null;
             ArrayList<Movie> listMovies = new ArrayList<>();
-            String IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
             try {
                 result = NetworkUtils.getResponseFromHttpUrl(newURL);

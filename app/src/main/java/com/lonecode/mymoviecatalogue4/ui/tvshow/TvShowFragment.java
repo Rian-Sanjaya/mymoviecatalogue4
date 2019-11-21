@@ -49,7 +49,7 @@ public class TvShowFragment extends Fragment implements ListMovieAdapter.OnItemC
         tvshowViewModel =
                 ViewModelProviders.of(this).get(TvShowViewModel.class);
 
-        tvshowViewModel.setMovie();
+        tvshowViewModel.setMovie("");
         showLoading(true);
 
         tvshowViewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {

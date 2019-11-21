@@ -36,4 +36,5 @@
     <string name="appwidget_text">FAVORIT BANNER</string>
     <string name="add_widget">Tambah widget</string>
     <string name="empty_text">TIDAK ADA DATA</string>
+    <string name="tv_show_not_found">Acara Tv Tidak Ditemukan</string>
 </resources>

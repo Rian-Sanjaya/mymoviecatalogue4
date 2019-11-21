@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.lonecode.mymoviecatalogue4.BuildConfig;
 import com.lonecode.mymoviecatalogue4.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -19,12 +20,13 @@ import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.lonecode.mymoviecatalogue4.helper.NetworkUtils.IMG_URL;
+
 public class TvShowViewModel extends ViewModel {
-    private static final String API_KEY = "e4621b68dcd1fa1de4a66cfd0664dc28";
-    private static final String IMG_URL = "https://image.tmdb.org/t/p/w500";
+    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private MutableLiveData<ArrayList<Movie>> list = new MutableLiveData<>();
 
-    void setMovie() {
+    void setMovie(String title) {
         String language;
 
         if (Locale.getDefault().getLanguage().contentEquals("in")) {
@@ -35,7 +37,15 @@ public class TvShowViewModel extends ViewModel {
 
         AsyncHttpClient client = new AsyncHttpClient();
         final ArrayList<Movie> listMovies = new ArrayList<>();
-        String url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY + "&language=" + language;
+
+        String url;
+        if (title == "") {
+            url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY + "&language=" + language;
+        } else {
+            url = "https://api.themoviedb.org/3/search/tv?api_key=" + API_KEY + "&language=" + language + "&query=" + title;
+        }
+        Log.i("isiurl", url);
+
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

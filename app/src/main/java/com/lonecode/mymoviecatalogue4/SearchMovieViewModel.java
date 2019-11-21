@@ -17,9 +17,10 @@ import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.lonecode.mymoviecatalogue4.helper.NetworkUtils.IMG_URL;
+
 public class SearchMovieViewModel {
-    private static final String API_KEY = "e4621b68dcd1fa1de4a66cfd0664dc28";
-    private static final String IMG_URL = "https://image.tmdb.org/t/p/w500/";
+    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private MutableLiveData<ArrayList<Movie>> list = new MutableLiveData<>();
 
     void setMovie() {

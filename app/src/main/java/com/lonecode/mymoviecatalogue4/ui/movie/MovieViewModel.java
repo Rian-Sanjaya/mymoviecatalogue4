@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.lonecode.mymoviecatalogue4.BuildConfig;
 import com.lonecode.mymoviecatalogue4.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -19,9 +20,10 @@ import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.lonecode.mymoviecatalogue4.helper.NetworkUtils.IMG_URL;
+
 public class MovieViewModel extends ViewModel {
-    private static final String API_KEY = "e4621b68dcd1fa1de4a66cfd0664dc28";
-    private static final String IMG_URL = "https://image.tmdb.org/t/p/w500/";
+    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private MutableLiveData<ArrayList<Movie>> list = new MutableLiveData<>();
 
     public void setMovie(String title) {

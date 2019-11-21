@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class NetworkUtils {
+    public static final String IMG_URL = "https://image.tmdb.org/t/p/w500";
+
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {

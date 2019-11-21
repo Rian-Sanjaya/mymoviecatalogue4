@@ -3,6 +3,7 @@ package com.lonecode.mymoviecatalogue4.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.bumptech.glide.Glide;
 import com.lonecode.mymoviecatalogue4.Movie;
 import com.lonecode.mymoviecatalogue4.R;
 import com.lonecode.mymoviecatalogue4.db.FavMovieHelper;
@@ -166,24 +168,21 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public RemoteViews getViewAt(int position) {
-        String IMG_URL = "https://image.tmdb.org/t/p/w500";
-
         Movie movie = mWidgetItems.get(position);
 
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
 
         try {
-//            Bitmap bitmap = Glide
-//                    .with(mContext)
-//                    .asBitmap()
-//                    .load(movie.getPosterPath())
-//
-//                    .submit()
-//                    .get();
+            Bitmap bitmap = Glide
+                    .with(mContext)
+                    .asBitmap()
+                    .load(movie.getPosterPath())
+                    .submit()
+                    .get();
 
 //            Bitmap bitmap = Picasso.get().load(movie.getPosterPath()).get();
 //
-//            rv.setImageViewBitmap(R.id.imageView, bitmap);
+            rv.setImageViewBitmap(R.id.imageView, bitmap);
             rv.setTextViewText(R.id.tvMovieTitle, movie.getName());
 
         } catch (Exception e) {
