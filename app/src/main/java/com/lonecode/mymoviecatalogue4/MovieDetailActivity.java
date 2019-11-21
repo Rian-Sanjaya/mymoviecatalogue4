@@ -188,7 +188,7 @@ public class MovieDetailActivity extends AppCompatActivity implements LoadFavMov
     protected void onDestroy() {
         super.onDestroy();
 
-        favMovieHelper.close();
+//        favMovieHelper.close();
     }
 
     @Override
