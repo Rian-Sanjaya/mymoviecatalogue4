@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,18 +17,11 @@ import com.lonecode.mymoviecatalogue4.R;
 import com.lonecode.mymoviecatalogue4.db.FavMovieHelper;
 import com.lonecode.mymoviecatalogue4.helper.MappingHelper;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import static com.lonecode.mymoviecatalogue4.db.DatabaseMovie.FavMovie.CONTENT_URI;
 
-interface LoadListFavMovieCallback {
-    void preExecute();
-
-    void postExecute(ArrayList<Movie> movie);
-}
-
-public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, LoadListFavMovieCallback {
+public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private ArrayList<Movie> mWidgetItems = new ArrayList<>();
     private final Context mContext;
@@ -42,105 +34,14 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         mContext = context;
     }
 
-    private void getData() {
-//        favMovieHelper = FavMovieHelper.getInstance(mContext);
-//        favMovieHelper.open();
-
-//        new LoadFavMovieAsync(favMovieHelper, this).execute();
-
-        new LoadFavMovieAsync(mContext, this).execute();
-    }
-
-    private static class LoadFavMovieAsync extends AsyncTask<Void, Void, ArrayList<Movie>> {
-//        private final WeakReference<FavMovieHelper> weakFavMovieHelper;
-        private final WeakReference<Context> weakContext;
-        private final WeakReference<LoadListFavMovieCallback> weakCallback;
-
-//        private LoadFavMovieAsync(FavMovieHelper favMovieHelper, LoadListFavMovieCallback callback) {
-//            weakFavMovieHelper = new WeakReference<>(favMovieHelper);
-//            weakCallback = new WeakReference<>(callback);
-//        }
-
-        private LoadFavMovieAsync(Context context, LoadListFavMovieCallback callback) {
-            weakContext = new WeakReference<>(context);
-            weakCallback = new WeakReference<>(callback);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-//            weakCallback.get().preExecute();
-        }
-
-//        @Override
-//        protected ArrayList<Movie> doInBackground(Void... voids) {
-//            Cursor dataCursor = weakFavMovieHelper.get().queryAllByCategory("movie");
-//            return MappingHelper.mapCursorToArrayList(dataCursor);
-//        }
-
-        @Override
-        protected ArrayList<Movie> doInBackground(Void... voids) {
-            if (cursor != null) {
-                cursor.close();
-            }
-
-            final long identityToken = Binder.clearCallingIdentity();
-
-            Uri uriWithCategory = Uri.parse(CONTENT_URI + "/category/movie");
-            Context context = weakContext.get();
-            cursor = context.getContentResolver().query(uriWithCategory, null, null, null, null);
-
-            Binder.restoreCallingIdentity(identityToken);
-
-            return MappingHelper.mapCursorToArrayList(cursor);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Movie> movie) {
-            super.onPostExecute(movie);
-            weakCallback.get().postExecute(movie);
-        }
-    }
-
-    @Override
-    public void preExecute() {
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i("Text preExecute", "Test preExecute");
-//            }
-//        });
-    }
-
-    @Override
-    public void postExecute(ArrayList<Movie> movie) {
-        for (int i = 0; i < movie.size(); i++) {
-            Movie movieItems = new Movie();
-            movieItems.setMovieid(String.valueOf(movie.get(i).getMovieid()));
-            movieItems.setName(movie.get(i).getName());
-            movieItems.setDescription("");
-            movieItems.setPosterPath(movie.get(i).getPosterPath());
-            movieItems.setUserScore(movie.get(i).getUserScore());
-            movieItems.setReleaseDate(movie.get(i).getReleaseDate());
-            movieItems.setOriginalLanguage(movie.get(i).getOriginalLanguage());
-            movieItems.setCategory("movie");
-            mWidgetItems.add(movieItems);
-        }
-
-        int listSize = mWidgetItems.size();
-        Log.i("listsize: ", String.valueOf(listSize));
-    }
-
     @Override
     public void onCreate() {
 
-//        getData();
     }
 
     @Override
     public void onDataSetChanged() {
         mWidgetItems.clear();
-//        getData();
 
         if (cursor != null) {
             cursor.close();
